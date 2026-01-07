@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Ingresar al Sistema</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <div th:insert="~{fragmentos/social.html::social}"></div>
+
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="alert alert-danger" role="alert" th:if="${param.error!=null}">
+                    <i class="fa-solid fa-circle-xmark"></i> <strong>Nombre de usuario ó contraseña
+                        incorrectos.</strong>
+                </div>
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-5 mx-md-4">
+                                <div class="text-center my-5">
+                                    <img th:src="@{/images/logo.png}"
+                                        style="width: 175px; border: 8px solid black; border-radius: 25rem;" alt="logo">
+                                    <h4 class="mt-1 mb-4 pb-1 pt-4">Formulario de Inicio de Sesión</h4>
+                                </div>
+                                <form method="post" th:action="@{/login}">
+                                    <div class="form-outline mt-5 mb-4">
+                                            <input type="text" class="form-control"
+                                                name="username"
+                                                title="Únicamente se permiten letras (a-z) y números (0-9)"
+                                                minlength="6" pattern="[A-Za-z0-9]+$" required autofocus/> <label
+                                                class="form-label"><strong
+                                                    class="text-danger">*</strong> Username</label>
+                                        </div>
+                                    <div class="form-outline my-4">
+                                            <input type="password" class="form-control"
+                                                name="password"
+                                                title="Se permiten letras (a-z), números (0-9) y signos de puntuación. Valor mínimo: 8"
+                                                minlength="8" required /> <label for="validationCustom05"
+                                                class="form-label"><strong class="text-danger">*</strong>
+                                                Contraseña</label>
+                                        </div>
+                                    <div class="text-center mb-5 pb-1">
+                                        <button class="btn btn-black btn-rounded w-100" type="submit">Entrar</button>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">¿Todavía no estás registrado?</p>
+                                        <a class="btn btn-black btn-rounded" th:href="@{/signup}">Regístrate</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <img th:src="@{/images/bannerLogin.jpeg}" alt="Login image" class="w-100 vh-100"
+                                style="object-fit: cover; object-position: left;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

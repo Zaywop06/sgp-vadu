@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Formulario de contacto</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <hr>
+    <div th:insert="~{fragmentos/social.html::social}"></div>
+
+    <div class="container mt-3">
+        <section class="dark-grey-text mb-3">
+            <h3 class="font-weight-bold text-center mb-4 text-black fs-1">Contáctanos</h3>
+            <p class="text-center w-responsive mx-auto text-black pb-3 fs-4">Para
+                información y pedidos, dejamos a tu disposición nuestros datos de
+                contacto.</p>
+            <div class="row">
+                <div class="col-lg-5 mb-lg-0 pb-lg-3 mb-4">
+                    <div class="card bg-light text-black">
+                        <div class="card-body">
+                            <div class="form-header blue accent-1">
+                                <h3 class="mt-2">
+                                    <i class="fas fa-envelope me-3"></i> Escribenos
+                                </h3>
+                            </div>
+                            <p class="dark-grey-text my-3">Llena el siguiente formulario para ponerte en contacto con
+                                nosotros.</p>
+                            <div class="alert alert-success mb-4" role="alert" th:if="${msg!=null}">
+                                <i class="fa-solid fa-circle-check"></i> <strong th:text="${msg}"></strong>
+                            </div>
+                            <form method="post" th:action="@{contactos/agregar}">
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <input type="text" id="nombre" name="nombre" class="form-control"
+                                            title="Únicamente se permiten letras (a-z)" minlength="5"
+                                            pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                            required autofocus />
+                                        <label class="form-label" for="form3Example1c"><strong
+                                                class="text-danger">*</strong> Nombre completo</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <input type="email" id="email" name="email" class="form-control"
+                                            title="Solo se permiten letras (a-z), números (0-9), puntos (.) y arroba (@)"
+                                            required />
+                                        <label class="form-label" for="form3Example3c"><strong
+                                                class="text-danger">*</strong> Email</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <i class="fas fa-tag prefix grey-text fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <input type="text" id="asunto" name="asunto" class="form-control"
+                                            title="Únicamente se permiten letras (a-z)" minlength="5"
+                                            pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                            required/>
+                                        <label class="form-label" for="form3Example4c"><strong
+                                                class="text-danger">*</strong> Asunto</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <i class="fas fa-pencil-alt prefix grey-text fa-lg me-3 fa-fw"></i>
+                                    <div class="form-outline flex-fill mb-0">
+                                        <textarea class="form-control md-textarea" id="mensaje" name="mensaje" rows="6"
+                                            required></textarea>
+                                        <label class="form-label" for="form3Example4c"><strong
+                                                class="text-danger">*</strong> Escribe tu mensaje</label>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-black btn-rounded text-white w-50" type="submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div id="map-container-section" class="z-depth-1-half map-container-section mb-4"
+                        style="height: 400px">
+                        <iframe
+                            th:src="@{https://www.google.com/maps/embed?pb=!4v1679892687729!6m8!1m7!1s21hrWWG1k4U7a_JS67aaNA!2m2!1d19.40307450100726!2d-98.9990571529277!3f331.95572!4f0!5f0.7820865974627469}"
+                            frameborder="0" style="border: 0" allowfullscreen></iframe>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <a class="btn-floating text-black"> <i class="fas fa-map-marker-alt fa-lg"></i>
+                            </a>
+                            <p>Calle La Panchita No. 200</p>
+                            <p>Col. Benito Juárez Nezahualcóyotl, Edo.Méx.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn-floating text-black"> <i class="fas fa-phone fa-lg"></i>
+                            </a>
+                            <p>+52 56 1711 2033</p>
+                            <p class="mb-md-0">Lunes - Domingo, de 8:00 a.m. - 6:00 p.m.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

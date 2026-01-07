@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Creación de Productos</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container text-black">
+            <div class="card border border-black">
+                <h4 class="card-header text-white" style="background-color: #c62020;">
+                    <strong>Datos del producto</strong>
+                </h4>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" th:action="@{/productos/agregar}"
+                        th:object="${producto}">
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role='alert'>
+                            Por favor corrija los siguientes errores:
+                            <ul>
+                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <div class="form-outline mb-2">
+                                    <input type="hidden" th:field="*{id}"> <input type="text"
+                                        class="form-control bg-light" th:field="*{nombre}" id="nombre" name="nombre"
+                                        placeholder="Nombre del producto" required="required" autofocus> <label
+                                        class="form-label" for="nombre"><strong class="text-danger">*</strong>
+                                        Nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-outline mb-2">
+                                    <input type="text" class="form-control bg-light" th:field="*{descripcion}"
+                                        id="descripcion" name="descripcion" placeholder="Breve descripción del producto"
+                                        required="required"> <label class="form-label" for="descripcion"><strong
+                                            class="text-danger">*</strong>
+                                        Descripción</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group mb-2">
+                                    <label class="pb-1" for="categoria"><strong class="text-danger">*</strong>
+                                        Categoría</label> <select class="form-control bg-light"
+                                        th:field="*{categoria.id}" name="categoria" id="categoria">
+                                        <option th:each="categoria:${categorias}" th:value="${categoria.id}"
+                                            th:text="${categoria.nombre}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-2">
+                                    <label class="pb-1" for="fecha"><strong class="text-danger">*</strong> Fecha de
+                                        Ingreso (dd/mm/yyyy)</label> <input type="text" class="form-control bg-light"
+                                        th:field="*{fechaIngreso}" name="fechaIngreso" id="fechaIngreso"
+                                        placeholder="Fecha de ingreso" required="required" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-2">
+                                    <label class="pb-1" for="precioKg"><strong class="text-danger">*</strong> Precio
+                                        (kg)</label> <input type="text" class="form-control bg-light"
+                                        th:field="*{precioKg}" name="precioKg" id="precioKg" placeholder="Precio por kg"
+                                        required="required">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="estatus0"><strong class="text-danger">*</strong>
+                                    Estatus</label><br>
+                                <div class="btn-group">
+                                    <input type="radio" class="btn-check" name="estatus" id="option1" value="1"
+                                        autocomplete="off" checked /> <label class="btn btn-secondary" for="option1">En
+                                        Venta</label> <input type="radio" class="btn-check" th:field="*{estatus}"
+                                        name="estatus" id="option2" value="0" autocomplete="off" />
+                                    <label class="btn btn-secondary" for="option2">Descontinuado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pt-3">
+                                <div class="form-outline mb-2">
+                                    <input type="number" class="form-control bg-light" th:field="*{cantidadIngreso}"
+                                        name="cantidadIngreso" id="cantidadIngreso"
+                                        placeholder="Cantidad de kg a ingresar" required="required"> <label
+                                        class="form-label" for="cantidadIngreso"><strong class="text-danger">*</strong>
+                                        Stock</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pt-3">
+                                <div class="form-outline mb-2">
+                                    <input type="number" class="form-control bg-light" th:field="*{tempAlmacen}"
+                                        name="tempAlmacen" id="tempAlmacen">
+                                    <label class="form-label" for="tempAlmacen">Temperatura
+                                        de almacen (C°)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pt-3">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-light" th:field="*{vidaUtil}"
+                                        name="vidaUtil" id="vidaUtil" placeholder="Vida util del producto en días">
+                                    <label class="form-label" for="vidaUtil">Vida util (días)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="text-center pt-3">
+                                <div class="form-group">
+                                    <label for="archivoImagen">Imagen</label> <input type="file"
+                                        class="form-control bg-light" name="archivoImagen" id="archivoImagen">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="text-center">
+                                <label for="imagen">Vista previa</label> <img class="rounded mx-auto d-block pt-2"
+                                    th:src="@{/images/{img}(img=${producto.imagen})}" alt="Generic placeholder image"
+                                    width="250px" height="250px">
+                            </div>
+                        </div>
+                        <div class="text-center pt-3">
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:if="${producto.id==null}">Guardar</button>
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:unless="${producto.id==null}">Modificar</button>
+                            <a class="btn btn-rounded text-white" th:href="@{/productos/indexPaginado}"
+                                style="background-color: #c62020;">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+    <script>
+        $(function () {
+            $("#fecha").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+        });
+    </script>
+</body>
+
+</html>

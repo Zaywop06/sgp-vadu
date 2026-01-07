@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Listado de Usuarios</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container mb-5">
+            <div class="card border border-black">
+                <h4 class="card-header text-white" style="background-color: #c62020;">
+                    <strong>Listado de Usuarios</strong>
+                </h4>
+                <div class="card-body">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a class="btn text-white" th:classappend="${usuarios.isEmpty() ? 'disabled' : 'enabled'}"
+                            th:href="@{/usuarios/exportarPDF}" title="Exportar a PDF" role="button"
+                            data-mdb-toggle="tooltip" style="background-color: #c62020;"><i
+                                class="fa-solid fa-file-pdf fa-lg"></i></a>
+                        <a class="btn text-white" th:classappend="${usuarios.isEmpty() ? 'disabled' : 'enabled'}"
+                            th:href="@{/usuarios/exportarExcel}" title="Exportar a Excel" role="button"
+                            data-mdb-toggle="tooltip" style="background-color: #1d7044"><i
+                                class="fa-solid fa-file-excel fa-lg"></i></a>
+                    </div>
+                    <hr>
+                    <div class="alert alert-success" role="alert" th:if="${msg!=null}">
+                        <i class="fa-solid fa-circle-check"></i> <strong th:text="${msg}"></strong>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover bg-light">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th scope="col" class="text-center">ID</th>
+                                    <th scope="col">Nombre(s)</th>
+                                    <th scope="col">Ap. Paterno</th>
+                                    <th scope="col">Ap. Materno</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col">Perfil(es)</th>
+                                    <th class="text-center" scope="col">Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-black">
+                                <tr th:each="usuario, iterStat : ${usuarios}">
+                                    <th class="text-center" th:text="${usuario.id}" scope="row"></th>
+                                    <td th:text="${usuario.nombre}"></td>
+                                    <td th:text="${usuario.apellidoPaterno}"></td>
+                                    <td th:text="${usuario.apellidoMaterno}"></td>
+                                    <td th:text="${usuario.username}"></td>
+                                    <td th:text="${usuario.email}"></td>
+                                    <td>
+                                        <span th:if="${usuario.estatus==1}"
+                                            class="badge badge-success rounded-pill d-inline fs-6">Activo
+                                        </span>
+                                        <span th:unless="${usuario.estatus==1}"
+                                            class="badge badge-danger rounded-pill d-inline fs-6">Bloqueado
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <p th:each="perfil : ${usuario.perfiles}" th:text="${perfil.perfil}"></p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a th:classappend="${usuario.id == 1 ? 'disabled' : ''}"
+                                            th:href="@{/usuarios/eliminar(id=${usuario.id})}"
+                                            onclick="return confirm('¿Estas seguro?')" class="btn btn-sm text-white"
+                                            role="button" title="Eliminar el registro" data-mdb-toggle="tooltip"
+                                            style="background-color: #c62020;">
+                                            <i class="fas fa-trash fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                        <a th:classappend="${usuario.estatus == 0 || iterStat.count == 1 ? 'disabled' : ''}"
+                                            th:href="@{/usuarios/bloquear(id=${usuario.id})}"
+                                            onclick="return confirm('¿Está seguro de quererle bloquear el acceso a éste usuario?')"
+                                            class="btn btn-warning btn-sm mx-1 mt-2" role="button"
+                                            title="Bloquear el acceso al sistema para este usuario"
+                                            data-mdb-toggle="tooltip">
+                                            <i class="fas fa-lock fa-lg text-white" aria-hidden="true"></i>
+                                        </a>
+                                        <a th:classappend="${usuario.estatus == 1 ? 'disabled' : ''}"
+                                            th:href="@{/usuarios/desbloquear(id=${usuario.id})}"
+                                            class="btn btn-success btn-sm mt-2" role="button"
+                                            title="Permitir el acceso al sistema a este usuario"
+                                            data-mdb-toggle="tooltip">
+                                            <i class="fas fa-unlock fa-lg text-white" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="text-black">
+                                <tr>
+                                    <td colspan="8" th:text="'Cantidad Total de Usuarios: ' + ${total}" class="fw-bold"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <nav th:if="${usuarios.totalPages > 0}" aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${usuarios.number == 0 ? 'disabled' : ''}">
+                                <a th:href="@{/usuarios/indexPaginado(page=${usuarios.number - 1})}"
+                                    class="page-link">Anterior</a>
+                            </li>
+                            <li class="page-item" th:classappend="${i eq usuarios.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( 1, usuarios.totalPages, 1)}">
+                                <a class="page-link" th:href="@{/usuarios/indexPaginado?page={tmpPag} (tmpPag=${i-1}) }"
+                                    th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${usuarios.number == (usuarios.totalPages - 1) ? 'disabled' : ''}">
+                                <a th:href="@{/usuarios/indexPaginado(page=${usuarios.number + 1})}"
+                                    class="page-link">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

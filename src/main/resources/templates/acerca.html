@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Conoce más a cerca de nosotros</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <hr>
+    <div th:insert="~{fragmentos/social.html::social}"></div>
+
+    <div class="container text-center mb-4">
+        <div class="card mb-5 text-black">
+            <div class="card-body">
+                <h5 class="card-title fs-1 pb-4">Conoce un poco más acerca de
+                    nosotros</h5>
+                <p class="card-text fs-4" style="text-align: justify;">Somos una empresa mexicana dedicada a
+                    la comercialización de productos cárnicos, con el objetivo de
+                    proveer insumos de la más alta calidad e inocuidad con un servicio
+                    profesional, para así cumplir y superar las expectativas de
+                    nuestros clientes.</p>
+                <p class="card-text fs-4" style="text-align: justify;">Los clientes son el centro de todo lo
+                    que hacemos Nuestro trabajo debe estar hecho pensando en nuestros
+                    clientes, proporcionando mejores productos y servicios que nuestra
+                    competencia.</p>
+            </div>
+            <img th:src="@{/images/sitio.png}" class="card-img-bottom" alt="Camera" />
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 text-black">
+            <div class="col">
+                <div class="card">
+                    <i class="fa-solid fa-book fa-5x pt-4"></i>
+                    <div class="card-body">
+                        <h5 class="card-title fs-3 mb-2 mb-3">MISIÓN</h5>
+                        <p class="card-text fs-5" style="text-align: justify;">Nuestra
+                            misión es proveer y comercializar productos de la más alta
+                            calidad e inocuidad, garantizando el abasto oportuno y el
+                            crecimiento continuo en la satisfacción del cliente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <i class="fa-solid fa-earth-americas fa-5x pt-4"></i>
+                    <div class="card-body">
+                        <h5 class="card-title fs-3 mb-2 mb-3">VISIÓN</h5>
+                        <p class="card-text fs-5" style="text-align: justify;">Tenemos
+                            como visión convertirnos en el mejor proveedor de productos
+                            cárnicos a nivel regional, manteniendo la frescura, calidad y
+                            servicio que por años nos han caracterizado.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <i class="fa-solid fa-handshake-angle fa-5x pt-4"></i>
+                    <div class="card-body">
+                        <h5 class="card-title fs-3 mb-2 mb-3">VALORES</h5>
+                        <ul style="text-align: left;">
+                            <li class="fs-5">Responsabilidad en todo aspecto</li>
+                            <li class="fs-5">Mejora continua</li>
+                            <li class="fs-5">Orientación al cliente</li>
+                            <li class="fs-5">Calidad en la carne y los cortes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <i class="fs-5">Muy Buen Servicio y Excelente Carne.</i> <i class="fs-5">Carne con la confianza de ser 100%
+                libre de
+                químicos.</i> <i class="fs-5">La mejor atención, siempre puntuales
+                con los pedidos.</i>
+        </div>
+    </div>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

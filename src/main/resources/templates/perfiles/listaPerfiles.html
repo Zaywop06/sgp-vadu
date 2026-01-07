@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Listado de Perfiles</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container pb-5">
+            <div class="card border border-black">
+                <h4 class="card-header text-white" style="background-color: #c62020;"><strong>Listado de
+                        Perfiles</strong></h4>
+                <div class="card-body">
+                    <table class="table table-hover bg-light">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Perfil</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-black">
+                            <tr th:each="perfil:${perfiles}">
+                                <th th:text="${perfil.id}" scope="row"></th>
+                                <td th:text="${perfil.perfil}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

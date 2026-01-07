@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Registro de Clientes</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container pb-5 mb-2 text-black">
+            <div class="card border border-black">
+                <h4 class="card-header text-white" style="background-color: #c62020;">
+                    <strong>Datos del cliente</strong>
+                </h4>
+                <div class="card-body">
+                    <form method="post" th:action="@{/clientes/agregar}" th:object="${cliente}">
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role='alert'>
+                            Por favor corrija los siguientes errores:
+                            <ul>
+                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" th:field="*{id}">
+                            <strong class="mb-3 fs-5">Información personal</strong>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input type="hidden" th:field="*{id}"> <input th:if="${cliente.id!=null}"
+                                        type="text" class="form-control bg-light" th:field="*{nombre}" id="nombre"
+                                        name="nombre" placeholder="Nombre del cliente" required readonly
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" />
+                                    <input th:unless="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{nombre}" id="nombre" name="nombre" placeholder="Nombre del cliente"
+                                        required autofocus
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" />
+                                    <label class="form-label" for="nombre"><strong class="text-danger">*</strong>
+                                        Nombre(s)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input th:if="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{apellidoPaterno}" id="apellidoPaterno" name="apellidoPaterno"
+                                        placeholder="Apellido Paterno del cliente" required readonly
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" />
+                                    <input th:unless="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{apellidoPaterno}" id="apellidoPaterno" name="apellidoPaterno"
+                                        placeholder="Apellido Paterno del cliente" required
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" /><label
+                                        class="form-label" for="apellidoPaterno"><strong class="text-danger">*</strong>
+                                        Apellido
+                                        Paterno</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input th:if="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{apellidoMaterno}" id="apellidoMaterno" name="apellidoMaterno"
+                                        placeholder="Apellido Materno del cliente" required readonly
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" />
+                                    <input th:unless="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{apellidoMaterno}" id="apellidoMaterno" name="apellidoMaterno"
+                                        placeholder="Apellido Materno del cliente" required
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" /><label
+                                        class="form-label" for="apellidoMaterno"><strong class="text-danger">*</strong>
+                                        Apellido
+                                        Materno</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input th:if="${cliente.id!=null}" class="form-control bg-light"
+                                        th:field="*{username}" id="username" name="username"
+                                        placeholder="Username del cliente" required autofocus>
+                                    <input th:unless="${cliente.id!=null}" class="form-control bg-light"
+                                        th:field="*{username}" id="username" name="username"
+                                        placeholder="Username del cliente" required><label class="form-label"
+                                        for="username"><strong class="text-danger">*</strong> Username</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{telefono}"
+                                        id="telefono" name="telefono" placeholder="Teléfono del cliente" required
+                                        pattern="[0-9]*">
+                                    <label class="form-label" for="telefono"><strong class="text-danger">*</strong>
+                                        Teléfono</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input type="email" class="form-control bg-light" th:field="*{email}" id="email"
+                                        name="email" placeholder="Email del cliente" required> <label class="form-label"
+                                        for="email"><strong class="text-danger">*</strong>
+                                        Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-outline">
+                                    <input th:if="${cliente.id!=null}" type="text" class="form-control bg-light"
+                                        th:field="*{password}" id="password" name="password"
+                                        placeholder="Password del cliente" required readonly>
+                                    <input th:unless="${cliente.id!=null}" type="password" class="form-control bg-light"
+                                        th:field="*{password}" id="password" name="password"
+                                        placeholder="Password del cliente" required> <label class="form-label"
+                                        for="password"><strong class="text-danger">*</strong>
+                                        Password</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-outline mb-3">
+                                    <input type="text" class="form-control bg-light" name="fechaRegistro" th:field="*{fechaRegistro}"
+                                        id="fechaRegistro" placeholder="Fecha de registro" required readonly> <label
+                                        class="form-label" for="fechaRegistro"><strong class="text-danger">*</strong>
+                                        Fecha de Contratación </label>
+                                </div>
+                            </div>
+                        </div>
+                        <strong class="fs-5">Información de envío</strong>
+                        <div class="row mt-3">
+                            <div class="col-md-4 pb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{calle}" id="calle"
+                                        name="calle" placeholder="Calle en la que vive el cliente">
+                                    <label class="form-label" for="calle">
+                                        Calle</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{municipio}"
+                                        id="municipio" name="municipio" placeholder="Municipio en el que vive el cliente" >
+                                    <label class="form-label" for="telefono">
+                                        Municipio</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{colonia}"
+                                        id="colonia" name="colonia" placeholder="Colonia en la que vive el cliente"> <label
+                                        class="form-label" for="telefono">
+                                        Colonia</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        	<div class="col-md-4 pb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{ciudad}" id="ciudad"
+                                        name="ciudad" placeholder="Ciudad en la que vive el cliente"> <label
+                                        class="form-label" for="telefono">
+                                        Ciudad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{estado}"
+                                        id="estado" name="estado" placeholder="Estado en el que vive el cliente">
+                                    <label class="form-label" for="estado">
+                                        Estado</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" th:field="*{cp}"
+                                        id="colonia" name="cp" placeholder="Código postal del cliente" pattern="[0-9]*"> <label
+                                        class="form-label" for="cp">
+                                        C.P.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center pt-3">
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:if="${cliente.id==null}">Guardar</button>
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:unless="${cliente.id==null}">Modificar</button>
+                            <a class="btn btn-rounded text-white" th:href="@{/clientes/indexPaginado}"
+                                style="background-color: #c62020;">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+    <script>
+        $(function () {
+            $("#fecha").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+        });
+    </script>
+</body>
+
+</html>

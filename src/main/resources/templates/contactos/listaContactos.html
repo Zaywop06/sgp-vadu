@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Listado de Mensajes de Contacto</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container">
+            <div class="card border border-black mb-3">
+                <h4 class="card-header text-white" style="background-color: #c62020;">
+                    <strong>Listado de Mensajes de Contacto</strong>
+                </h4>
+                <div class="card-body">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a class="btn text-white" th:classappend="${contactos.isEmpty() ? 'disabled' : 'enabled'}"
+                            th:href="@{/contactos/exportarPDF}" title="Exportar a PDF" role="button"
+                            data-mdb-toggle="tooltip" style="background-color: #c62020;"><i
+                                class="fa-solid fa-file-pdf fa-lg"></i></a>
+                        <a class="btn text-white" th:classappend="${contactos.isEmpty() ? 'disabled' : 'enabled'}"
+                            th:href="@{/contactos/exportarExcel}" title="Exportar a Excel" role="button"
+                            data-mdb-toggle="tooltip" style="background-color: #1d7044"><i
+                                class="fa-solid fa-file-excel fa-lg"></i></a>
+                    </div>
+                    <hr>
+                    <div class="alert alert-success" role="alert" th:if="${msg!=null}">
+                        <i class="fa-solid fa-circle-check"></i> <strong th:text="${msg}"></strong>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-light">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th scope="col" class="text-center">ID</th>
+                                    <th scope="col">Remitente</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Fecha de Emisión</th>
+                                    <th scope="col">Asunto</th>
+                                    <th scope="col">Mensaje</th>
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col" class="text-center">Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="contacto:${contactos}">
+                                    <th class="text-center" th:text="${contacto.id}" scope="row"></th>
+                                    <td th:text="${contacto.nombre}"></td>
+                                    <td th:text="${contacto.email}"></td>
+                                    <td th:text="${contacto.fecha}"></td>
+                                    <td th:text="${contacto.asunto}"></td>
+                                    <td th:text="${contacto.mensaje}"></td>
+                                    <td>
+                                        <span th:if="${contacto.estatus==1}"
+                                            class="badge badge-success rounded-pill d-inline fs-6">Leído
+                                        </span>
+                                        <span th:unless="${contacto.estatus==1}"
+                                            class="badge badge-danger rounded-pill d-inline fs-6">No Leído
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a th:classappend="${contacto.estatus == 1 ? 'disabled' : ''}"
+                                            class="btn btn-success btn-sm"
+                                            th:href="@{/contactos/leido(id=${contacto.id})}" role="button"
+                                            title="Marcar el msj como leído" data-mdb-toggle="tooltip">
+                                            <i class="fas fa-check fa-lg" aria-hidden="true"></i>
+                                        </a><br>
+                                        <a th:classappend="${contacto.estatus == 0 ? 'disabled' : ''}"
+                                            class="btn btn-sm mt-2 text-white"
+                                            th:href="@{/contactos/noLeido(id=${contacto.id})}" role="button"
+                                            title="Marcar el msj como no leído" data-mdb-toggle="tooltip"
+                                            style="background-color: #c62020;">
+                                            <i class="fas fa-xmark fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="8" th:text="'Cantidad Total de Mensajes: ' + ${total}" class="fw-bold">
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <nav th:if="${contactos.totalPages > 0}" aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${contactos.number == 0 ? 'disabled' : ''}">
+                                <a th:href="@{/contactos/indexPaginado(page=${contactos.number - 1})}"
+                                    class="page-link">Anterior</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${i eq contactos.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( 1, contactos.totalPages, 1)}">
+                                <a class="page-link"
+                                    th:href="@{/contactos/indexPaginado?page={tmpPag} (tmpPag=${i-1}) }" th:text="${i}"
+                                    th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${contactos.number == (contactos.totalPages - 1) ? 'disabled' : ''}">
+                                <a th:href="@{/contactos/indexPaginado(page=${contactos.number + 1})}"
+                                    class="page-link">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

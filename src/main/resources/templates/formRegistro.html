@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Formulario de Registro</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <div th:insert="~{fragmentos/social.html::social}"></div>
+
+    <!-- Section: Design Block -->
+    <section class="pb-5">
+        <!-- Background image -->
+        <div class="bg-image" style="background-image: url('/images/banner.jpg'); height: 300px;"></div>
+        <!-- Background image -->
+
+        <div class="container py-5">
+            <div class="card container shadow-5-strong" style="margin-top: -175px; max-width: 50rem">
+                <div class="card-body py-5 px-md-2 text-black">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-8">
+                            <h2 class="fw-bold mb-4 text-center">Formulario de Registro</h2>
+                            <form class="needs-validation" method="post" th:action="@{/registrar}"
+                                th:object="${usuario}" novalidate>
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" th:field="*{nombre}" name="nombre"
+                                                title="Únicamente se permiten letras (a-z)" minlength="4" maxlength="15"
+                                                pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                                autofocus required /> <label for="validationCustom01" class="form-label"
+                                                name="nombre"><strong class="text-danger">*</strong> Nombre(s)</label>
+                                            <div class="valid-feedback">
+                                                <i class="fa-solid fa-circle-check"></i> ¡Muy Bien!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <i class="fa-solid fa-circle-xmark"></i> Ingrese su
+                                                nombre(s)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" th:field="*{apellidoPaterno}"
+                                                name="apellidoPaterno" title="Únicamente se permiten letras (a-z)"
+                                                minlength="4"
+                                                pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                                required /> <label for="validationCustom02" class="form-label"
+                                                name="apellidoPaterno"><strong class="text-danger">*</strong> Apellido
+                                                Paterno</label>
+                                            <div class="valid-feedback">
+                                                <i class="fa-solid fa-circle-check"></i> ¡Muy Bien!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <i class="fa-solid fa-circle-xmark"></i> Ingrese su
+                                                Ap.Paterno
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" th:field="*{apellidoMaterno}"
+                                                name="apellidoMaterno"
+                                                title="Únicamente se permiten letras (a-z). Valor mínimo: 4"
+                                                minlength="4"
+                                                pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                                required /> <label for="validationCustom03" class="form-label"
+                                                name="apellidoMaterno"><strong class="text-danger">*</strong> Apellido
+                                                Materno</label>
+                                            <div class="valid-feedback">
+                                                <i class="fa-solid fa-circle-check"></i> ¡Muy Bien!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <i class="fa-solid fa-circle-xmark"></i> Ingrese su
+                                                Ap.Materno
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" th:field="*{username}"
+                                                name="username"
+                                                title="Únicamente se permiten letras (a-z) y números (0-9)"
+                                                minlength="6" pattern="[A-Za-z0-9]+$" required /> <label
+                                                for="validationCustomUsername" class="form-label"><strong
+                                                    class="text-danger">*</strong> Username</label>
+                                            <div class="valid-feedback"><i class="fa-solid fa-circle-check"></i> ¡Muy
+                                                Bien!</div>
+                                            <div class="invalid-feedback"><i class="fa-solid fa-circle-xmark"></i>
+                                                Ingrese un nombre de usuario</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email input -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="input-group form-outline">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <input type="email" class="form-control" id="validationCustomUsername"
+                                            aria-describedby="inputGroupPrepend" th:field="*{email}"
+                                            title="Solo se permiten letras (a-z), números (0-9), puntos (.) y arroba (@)"
+                                            name="email" required /> <label for="validationCustomUsername"
+                                            class="form-label"><strong class="text-danger">*</strong> E-mail</label>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="password" class="form-control" th:field="*{password}"
+                                                name="password"
+                                                title="Se permiten letras (a-z), números (0-9) y signos de puntuación. Valor mínimo: 8"
+                                                minlength="8" required /> <label for="validationCustom05"
+                                                class="form-label"><strong class="text-danger">*</strong>
+                                                Contraseña</label>
+                                            <div class="valid-feedback"><i class="fa-solid fa-circle-check"></i> ¡Muy
+                                                Bien!</div>
+                                            <div class="invalid-feedback"><i class="fa-solid fa-circle-xmark"></i>
+                                                Ingrese una contraseña</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="form-outline">
+                                            <input type="password" class="form-control" th:field="*{confirmPassword}"
+                                                name="confirmPassword"
+                                                title="Se permiten letras (a-z), números (0-9) y signos de puntuación. Valor mínimo: 8"
+                                                minlength="8" required /> <label for="validationCustom05"
+                                                class="form-label"><strong class="text-danger">*</strong>
+                                                Confirmación</label>
+                                            <div class="valid-feedback"><i class="fa-solid fa-circle-check"></i>
+                                                ¡Perfecto!</div>
+                                            <div class="invalid-feedback"><i class="fa-solid fa-circle-xmark"></i>
+                                                Confirme la contraseña</div>
+                                        </div>
+                                        <small th:if="${#fields.hasErrors('confirmPassword')}"
+                                            th:errors="*{confirmPassword}" class="form-text text-danger"></small>
+                                    </div>
+                                </div>
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-block btn-rounded text-white mb-2"
+                                    style="background-color: #c62020;">Registrarme</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>

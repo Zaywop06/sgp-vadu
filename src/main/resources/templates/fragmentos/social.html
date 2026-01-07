@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<div class="social-body text-center" th:fragment="social" sec:authorize="isAuthenticated() and hasAnyAuthority('Cliente') or isAnonymous()">
+	<ul>
+		<li class="whatsapp"><a class="bg-success" th:href="@{https://wa.me/message/UHM5BEDBP7JUL1?src=qr}"><i
+				class="fa fa-whatsapp"></i></a></li>
+		<li class="github"><a class="bg-black"
+			th:href="@{https://github.com/Usiel06/SGP-VADU.git}" target="_blank"><i
+				class="fa fa-github"></i></a>
+	</ul>
+	<!--<div class="modal fade" id="whatsapp" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header border-bottom-0">
+					<button type="button" class="btn-close" data-mdb-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="container text-black">
+					<h5 class="modal-title text-uppercase mb-3 mt-2"
+						id="exampleModalLabel">Escanee el siguiente código</h5>
+					<img th:src="@{/images/qr.jpeg}" style="width: 175px;" alt="logo">
+					<h5 class="modal-title text-uppercase mt-3 mb-5"
+						id="exampleModalLabel">+52 56 1711 2033</h5>
+				</div>
+			</div>
+		</div>
+	</div>-->
+</div>

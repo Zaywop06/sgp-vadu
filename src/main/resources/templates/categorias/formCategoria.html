@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/logo.png}">
+    <title>SGP-VADU | Creación de Categorías</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" th:href="@{/mdb5/css/mdb.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header class="sticky-top" th:insert="~{fragmentos/menu.html::menu}"></header>
+
+    <main role="main">
+        <hr>
+        <div class="container pb-5">
+            <div class="card border border-black">
+                <h4 class="card-header text-white" style="background-color: #c62020;">
+                    <strong>Datos de la categoría</strong>
+                </h4>
+                <div class="card-body">
+                    <form method="post" th:action="@{/categorias/agregar}" th:object="${categoria}">
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role='alert'>
+                            Por favor corrija los siguientes errores:
+                            <ul>
+                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-15">
+                                <div class="form-outline mb-3">
+                                    <input type="hidden" th:field="*{id}"> <input type="text"
+                                        class="form-control mt-2 mb-2 bg-light" th:field="*{nombre}" id="nombre"
+                                        name="nombre" th:value="${categoria.nombre}"
+                                        placeholder="Escriba el nombre de la categoría"
+                                        title="Únicamente se permiten letras (a-z)"
+                                        pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                        autofocus required>
+                                    <label class="form-label" for="nombre"><strong class="text-danger">*</strong>
+                                        Nombre</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-15">
+                                <div class="form-outline">
+                                    <textarea class="form-control mt-2 bg-light" th:field="*{descripcion}"
+                                        name="descripcion" id="descripcion" rows="4" th:text="${categoria.descripcion}"
+                                        placeholder="Escriba una breve descripción de la categoría"></textarea>
+                                    <label class="form-label" for="descripcion">Descripción</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center pt-4">
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:if="${categoria.id==null}">Guardar</button>
+                            <button type="submit" class="btn btn-success btn-rounded me-3"
+                                th:unless="${categoria.id==null}">Modificar</button>
+                            <a class="btn btn-rounded text-white" th:href="@{/categorias/indexPaginado}"
+                                style="background-color: #c62020;">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br><br><br>
+
+    <footer th:insert="~{fragmentos/pie.html::pie}"></footer>
+
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/6626a63f5b.js}"></script>
+    <script type="text/javascript" th:src="@{/mdb5/js/mdb.min.js}"></script>
+</body>
+
+</html>
